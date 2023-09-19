@@ -1,75 +1,94 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1    Database: musicando
--- ------------------------------------------------------
--- Server version	5.5.5-10.4.17-MariaDB
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-09-2023 a las 01:35:19
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `albumes`
+-- Base de datos: `musicando`
 --
 
-DROP TABLE IF EXISTS `albumes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `albumes`
+--
+
 CREATE TABLE `albumes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `duracion` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `duracion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `albumes`
+-- Volcado de datos para la tabla `albumes`
 --
 
-LOCK TABLES `albumes` WRITE;
-/*!40000 ALTER TABLE `albumes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `albumes` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `albumes` (`id`, `nombre`, `duracion`) VALUES
+(1, 'For Those About To Rock We Salute You', 343719),
+(2, 'Balls to the Wall', 343513),
+(3, 'Restless and Wild', 343613),
+(4, 'Let There Be Rock', 343900),
+(5, 'Big Ones', 343800),
+(6, 'Jagged Little Pill', 343713);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `artistas`
+-- Estructura de tabla para la tabla `artistas`
 --
 
-DROP TABLE IF EXISTS `artistas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `artistas` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `apellido` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `apellido` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `artistas`
+-- Volcado de datos para la tabla `artistas`
 --
 
-LOCK TABLES `artistas` WRITE;
-/*!40000 ALTER TABLE `artistas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `artistas` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `artistas` (`id`, `nombre`, `apellido`) VALUES
+(1, 'Mariette', 'Beardall'),
+(2, 'Gunther', 'Dreger'),
+(3, 'Kirstyn', 'Eye'),
+(4, 'Florance', 'Swindon'),
+(5, 'Modestine', 'Alldritt'),
+(6, 'Marcy', 'Heeney'),
+(7, 'Aggie', 'Brumham'),
+(8, 'Rosene', 'McArt'),
+(9, 'Antonio', 'Lindman'),
+(10, 'Dora', 'Brasher'),
+(11, 'Deina', 'Mongain'),
+(12, 'Leontine', 'Messent'),
+(13, 'Nadean', 'Blackstock'),
+(14, 'Sibyl', 'Rainon'),
+(15, 'Wallas', 'Mitroshinov'),
+(16, 'Sheri', 'Colbran'),
+(17, 'Jessamine', 'Semechik'),
+(18, 'Gabbie', 'Orcas'),
+(19, 'Blake', 'Sarfat'),
+(20, 'Merv', 'Bess');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `canciones`
+-- Estructura de tabla para la tabla `canciones`
 --
 
-DROP TABLE IF EXISTS `canciones`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `canciones` (
   `id` int(11) NOT NULL,
   `titulo` varchar(45) DEFAULT NULL,
@@ -78,56 +97,119 @@ CREATE TABLE `canciones` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `genero_id` int(11) NOT NULL,
   `album_id` int(11) NOT NULL,
-  `artista_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `canciones_generos_idx` (`genero_id`),
-  KEY `canciones_albumes_idx` (`album_id`),
-  KEY `canciones_artistas_idx` (`artista_id`),
-  CONSTRAINT `canciones_albumes` FOREIGN KEY (`album_id`) REFERENCES `albumes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `canciones_artistas` FOREIGN KEY (`artista_id`) REFERENCES `artistas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `canciones_generos` FOREIGN KEY (`genero_id`) REFERENCES `generos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `artista_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `canciones`
+-- Volcado de datos para la tabla `canciones`
 --
 
-LOCK TABLES `canciones` WRITE;
-/*!40000 ALTER TABLE `canciones` DISABLE KEYS */;
-/*!40000 ALTER TABLE `canciones` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `canciones` (`id`, `titulo`, `duracion`, `created_at`, `updated_at`, `genero_id`, `album_id`, `artista_id`) VALUES
+(51, 'For Those About To Rock (We Salute You)\r\n', 343719, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 1),
+(52, 'Balls to the Wall', 343719, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 2, 2),
+(53, 'Fast As a Shark', 343719, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 2, 2);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `generos`
+-- Estructura de tabla para la tabla `generos`
 --
 
-DROP TABLE IF EXISTS `generos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `generos` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `name` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `generos`
+-- Volcado de datos para la tabla `generos`
 --
 
-LOCK TABLES `generos` WRITE;
-/*!40000 ALTER TABLE `generos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `generos` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `generos` (`id`, `name`) VALUES
+(1, 'Pop'),
+(2, 'Regaeton'),
+(3, 'salsa'),
+(4, 'rock'),
+(5, 'bachata'),
+(6, 'merengue'),
+(7, 'vallenato'),
+(8, 'reggae'),
+(9, 'urbano'),
+(10, 'cumbia'),
+(11, 'salsa choke'),
+(12, 'hip hop');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `albumes`
+--
+ALTER TABLE `albumes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `artistas`
+--
+ALTER TABLE `artistas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `canciones`
+--
+ALTER TABLE `canciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `canciones_generos_idx` (`genero_id`),
+  ADD KEY `canciones_albumes_idx` (`album_id`),
+  ADD KEY `canciones_artistas_idx` (`artista_id`);
+
+--
+-- Indices de la tabla `generos`
+--
+ALTER TABLE `generos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `albumes`
+--
+ALTER TABLE `albumes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `artistas`
+--
+ALTER TABLE `artistas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `canciones`
+--
+ALTER TABLE `canciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT de la tabla `generos`
+--
+ALTER TABLE `generos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `canciones`
+--
+ALTER TABLE `canciones`
+  ADD CONSTRAINT `canciones_albumes` FOREIGN KEY (`album_id`) REFERENCES `albumes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `canciones_artistas` FOREIGN KEY (`artista_id`) REFERENCES `artistas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `canciones_generos` FOREIGN KEY (`genero_id`) REFERENCES `generos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-09-07 19:30:47
