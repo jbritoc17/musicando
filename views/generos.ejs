@@ -8,11 +8,20 @@
 <body>
 
     <h2>Listado de Generos</h2>
-    <hr>
-    <% generoList.forEach(genero => { %>
-        <h2>Id: <%= genero.id %></h2>
-        <h2>Nombre: <%= genero.name %></h2>
-        <hr>
+    <ul>
+        <% generoList.forEach((genero) => { %>
+            <li><%= genero.name %></li>
+            <ul>
+                <% if (genero.cancion && genero.cancion.length > 0) { %>
+                    
+                        <li><%= cancion.id %></li>
+                        <li><%= cancion.titulo %></li>
+                   
+                <% } else { %>
+                    <li>Sin canciones</li>
+                <% } %>
+            </ul>
         <% }); %>
+    </ul>
 </body>
 </html>

@@ -8,35 +8,45 @@ const musicandoControllers = {
     getListGenero: async (req, res) => {
       try {
         const generoList = await Genero.findAll({
+          include: [{ model: Cancion, as: 'cancion', required: false }],
           raw: true,
           nest: true,
+          
         });
   
-        res.render("generos", {
-          generoList
+        res.json({
+          data:generoList.length,
+          codigo_estado: 200,
+          resultado: generoList,
         });
       } catch (error) {
-        res.render("generos", {
-          generoList: []
+        res.status(500).json({
+          codigo_estado: 500,
+          resultado: "Error en el servidor",
         });
         console.log(error);
       }
     },
+
     getListArtista: async (req, res) => {
       try {
         const artistaList = await Artista.findAll({
           raw: true,
           nest: true,
         });
-  
-        res.render("artistas", {
-          artistaList
+        res.json({
+          data:artistaList.length,
+          codigo_estado: 200,
+          resultado: artistaList,
         });
+        
       } catch (error) {
-        res.render("artistas", {
-          artistaList: []
+        res.status(500).json({
+          codigo_estado: 500,
+          resultado: "Error en el servidor",
         });
         console.log(error);
+        
       }
     },
     getListAlbumes: async (req, res) => {
@@ -46,14 +56,18 @@ const musicandoControllers = {
           nest: true,
         });
   
-        res.render("albumes", {
-          albumList
+        res.json({
+          data:albumList.length,
+          codigo_estado: 200,
+          resultado: albumList,
         });
       } catch (error) {
-        res.render("albumes", {
-          albumList: []
+        res.status(500).json({
+          codigo_estado: 500,
+          resultado: "Error en el servidor",
         });
         console.log(error);
+        
       }
     },
     getListCanciones: async (req, res) => {
@@ -64,12 +78,16 @@ const musicandoControllers = {
           nest: true,
         });
   
-        res.render("canciones", {
-          cancionList
+        res.json({
+          data:cancionList.length,
+          codigo_estado: 200,
+          resultado:
+          cancionList,
         });
       } catch (error) {
-        res.render("canciones", {
-          cancionList: []
+        res.status(500).json({
+          codigo_estado: 500,
+          resultado: "Error en el servidor",
         });
         console.log(error);
       }
