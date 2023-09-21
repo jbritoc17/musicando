@@ -92,7 +92,9 @@ const musicandoControllers = {
         console.log(error);
       }
     },
-   
+    getCreateSong: (req, res) => {
+      res.render('crearCancion')
+    }
   };
   
   module.exports = musicandoControllers;
