@@ -94,8 +94,40 @@ const musicandoControllers = {
     },
     getCreateSong: (req, res) => {
       res.render('crearCancion')
+    },
+    getUpdateCancion: async (req, res) => {
+      let cancionId = req.params.id;
+      try {
+        const updateCancion = await Cancion.update(
+          {
+            titulo: req.body.titulo,
+            duracion: req.body.duracion,
+            genero_id: req.body.genero,
+            album_id: req.body.album,
+            artista_id: req.body.artista,
+          },
+          {
+            where: { id: cancionId },
+          }
+        );
+  
+        res.json({
+          meta: {
+            status: 200,
+            msg: "Actualizacion exitosa",
+          },
+          data: req.body,
+        });
+        console.log(updateCancion)
+      } catch (error) {
+        res.status(500).json({
+          codigo_estado: 500,
+          resultado: "Error en el servidor",
+        });
+        console.log(error);
+      }
     }
-  };
+}
   
   module.exports = musicandoControllers;
   
