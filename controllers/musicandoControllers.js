@@ -158,10 +158,6 @@ const musicandoControllers = {
     }
   },
 
-  getUpdateCancion: async (req, res) => {
-   
-  },
-
   getDeleteCancion: async (req, res) => {
     let idCancion = req.params.id;
     try {
