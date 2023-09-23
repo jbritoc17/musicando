@@ -1,4 +1,4 @@
-const { raw } = require("mysql2");
+
 const { Genero, Artista, Album, Cancion } = require("../database/models");
 
 const musicandoControllers = {
@@ -57,12 +57,12 @@ const musicandoControllers = {
       res.json({
         data: artistaList.length,
         codigo_estado: 200,
-        resultado: artistaList,
+        data: artistaList,
       });
     } catch (error) {
       res.status(500).json({
         codigo_estado: 500,
-        resultado: "Error en el servidor",
+        data: "Error en el servidor",
       });
       console.log(error);
     }
@@ -77,12 +77,12 @@ const musicandoControllers = {
       res.json({
         data: albumList.length,
         codigo_estado: 200,
-        resultado: albumList,
+        data: albumList,
       });
     } catch (error) {
       res.status(500).json({
         codigo_estado: 500,
-        resultado: "Error en el servidor",
+        data: "Error en el servidor",
       });
       console.log(error);
     }
@@ -142,9 +142,9 @@ const musicandoControllers = {
     try {
       const detailCancion = await Cancion.findByPk(req.params.id);
       if (!detailCancion) {
-        res.status(400).json({
+        res.status(404).json({
           codigo_estado: 404,
-          resultado: "Cancion no encontrada",
+          data: "Cancion no encontrada",
         });
       } else {
         res.json(detailCancion.dataValues);
@@ -152,7 +152,7 @@ const musicandoControllers = {
     } catch (error) {
       res.status(500).json({
         codigo_estado: 500,
-        resultado: "Error en el servidor",
+        data: "Error en el servidor",
       });
       console.log(error);
     }
@@ -195,9 +195,12 @@ const musicandoControllers = {
           status: 200,
           msg: "Actualizacion exitosa",
         },
-        data: req.body,
+        data: {
+          id: req.params.id,
+          cancion: req.body,
+        },
       });
-      console.log(updateCancion)
+      console.log(updateCancion);
     } catch (error) {
       res.status(500).json({
         codigo_estado: 500,
@@ -205,7 +208,7 @@ const musicandoControllers = {
       });
       console.log(error);
     }
-  }
+  },
 };
 
 module.exports = musicandoControllers;
