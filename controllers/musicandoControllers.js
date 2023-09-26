@@ -1,4 +1,3 @@
-
 const { Genero, Artista, Album, Cancion } = require("../database/models");
 
 const musicandoControllers = {
@@ -36,7 +35,6 @@ const musicandoControllers = {
 
       res.json({
         codigo_estado: 200,
-
         resultado: cancionesGenero,
       });
     } catch (error) {
