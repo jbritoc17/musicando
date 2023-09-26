@@ -9,11 +9,11 @@ module.exports = (sequelize, DataType) => {
         },
         nombre: {
             type: DataType.STRING,
-            notNULL: true
+            alowNull: true
         },
         apellido: {
             type: DataType.STRING,
-            notNULL: true
+            alowNull: true
         }, 
        
        
