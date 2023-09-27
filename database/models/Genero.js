@@ -8,7 +8,7 @@ module.exports = (sequelize, DataType) => {
     },
     name: {
       type: DataType.STRING,
-      alowNull: true,
+      allowNull: false,
     },
   };
   const config = {

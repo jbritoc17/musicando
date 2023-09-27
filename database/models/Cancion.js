@@ -9,15 +9,15 @@ module.exports = (sequelize, DataType) => {
         },
         titulo: {
             type: DataType.STRING,
-            alowNull: true
+            allowNull: false
         },
         duracion: {
             type: DataType.INTEGER,
-            alowNull: true
+            allowNull: false
         },
         genero_id: {
             type: DataType.INTEGER,
-            alowNull: true,
+            allowNull: false,
             references: {
                 model: 'generos',
                 key: 'id'
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataType) => {
        
         album_id: {
             type: DataType.INTEGER,
-            alowNull: true,
+            allowNull: false,
             references: {
                 model: 'albumes',
                 key: 'id'
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataType) => {
         },
         artista_id: {
             type: DataType.INTEGER,
-            alowNull: true,
+            allowNull: false,
             references: {
                 model: 'artistas',
                 key: 'id'

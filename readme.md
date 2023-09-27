@@ -66,7 +66,7 @@ _Esta en una api de canciones que cuenta con los siguientes endpoints:_
     Respuesta
     Código de estado: 200 OK
 
-    Cuerpo de respuesta: Lista de géneros musicales en formato JSON, con cada una de las canciones que pertenecen a determinado género.
+    Cuerpo de respuesta: Lista de géneros musicales en formato JSON, con la cantidad y cada una de las canciones que pertenecen a determinado género.
 
 # Musicando
 
